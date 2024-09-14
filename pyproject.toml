@@ -6,7 +6,9 @@ authors = ["shadi-fsai <163780314+shadi-fsai@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "3.12.2"
+crewai = "^0.55.2"
+crewai-tools = "^0.12.0"
 
 
 [build-system]
