@@ -3,7 +3,6 @@ from crewai.project import CrewBase, agent, crew, task
 
 from crewai_tools import SerperDevTool, ScrapeWebsiteTool
 from crewai_tools import SerplyWebpageToMarkdownTool, SerplyWebSearchTool
-from crewai_tools import GithubSearchTool
 
 
 @CrewBase
@@ -17,10 +16,9 @@ class ProjectScoperCrew():
 		return Agent(
 			config=self.agents_config['tech_lead'],
 			tools=[SerperDevTool(), ScrapeWebsiteTool(), 
-		  			SerplyWebpageToMarkdownTool(), SerplyWebSearchTool(),
-					GithubSearchTool(content_types=['code', 'issues', 'pr', 'repo'])], #gh_token
+		  			SerplyWebpageToMarkdownTool(), SerplyWebSearchTool()],
 			verbose=True,
-			memory=False,
+			memory=False
 		) 
 	
 	@task
