@@ -2,9 +2,8 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 
 from crewai_tools import SerperDevTool, ScrapeWebsiteTool
-from crewai_tools import SerplyNewsSearchTool, SerplyWebpageToMarkdownTool, SerplyWebSearchTool
-#from pydantic import BaseModel, Field
-
+from crewai_tools import SerplyWebpageToMarkdownTool, SerplyWebSearchTool
+from crewai_tools import GithubSearchTool
 
 
 @CrewBase
@@ -17,7 +16,9 @@ class ProjectScoperCrew():
 	def tech_lead(self) -> Agent:
 		return Agent(
 			config=self.agents_config['tech_lead'],
-			tools=[SerperDevTool(), ScrapeWebsiteTool(), SerplyWebpageToMarkdownTool(), SerplyWebSearchTool()],
+			tools=[SerperDevTool(), ScrapeWebsiteTool(), 
+		  			SerplyWebpageToMarkdownTool(), SerplyWebSearchTool(),
+					GithubSearchTool(content_types=['code', 'issues', 'pr', 'repo'])], #gh_token
 			verbose=True,
 			memory=False,
 		) 
@@ -26,7 +27,7 @@ class ProjectScoperCrew():
 	def project_scoping_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['project_scoping_task'],
-			agent=self.financial_analyst()
+			agent=self.tech_lead()
 		)
 		
 
